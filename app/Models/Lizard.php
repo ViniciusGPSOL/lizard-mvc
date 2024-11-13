@@ -17,7 +17,7 @@ class Lizard extends Model
     // If one wants to change the primary key it must do like this:
     protected $primaryKey = "id";
     //One can also disable timestamps for updated at and created at with this:
-    public $timestamps = false;
+    public $timestamps = true;
     //One can also hide a field, so that it wont be returned in API response. It is a security measure.
     //this way, when returning a json from the elements, age, description, species and weight wont be displayed.
     protected $hidden = ["age", "description", "species", "weight", "is_active"];
