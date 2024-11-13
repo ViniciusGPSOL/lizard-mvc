@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Habitat extends Model
 {
@@ -13,8 +13,12 @@ class Habitat extends Model
         "temperature",
     ];
 
-    public function lizard(): HasOne
+    public function lizard(): HasMany
     {
-        return $this->hasOne(Lizard::class);
+        return $this->hasMany(Lizard::class);
+    }
+    public function prey(): HasMany
+    {
+        return $this->hasMany(Lizard::class);
     }
 }

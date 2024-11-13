@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Lizard extends Model
 {
@@ -40,9 +40,9 @@ class Lizard extends Model
         return $query->where("is_active", true);
     }
 
-    public function habitat(): BelongsTo
+    public function habitat(): HasOne
     {
-        return $this->belongsTo(Habitat::class);
+        return $this->hasOne(Habitat::class);
     }
     protected $fillable = [ //can be mass assigned to not make it able to mass assign one should use $guarded
         "name",

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Prey extends Model
 {
@@ -18,4 +19,9 @@ class Prey extends Model
         "height" => "float",
         "weight" => "float",
     ];
+
+    public function habitat(): HasOne
+    {
+        return $this->hasOne(Habitat::class);
+    }
 }
