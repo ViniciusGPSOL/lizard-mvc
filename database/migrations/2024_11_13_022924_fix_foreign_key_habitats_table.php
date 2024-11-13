@@ -43,23 +43,30 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::table('habitats', function (Blueprint $table): void {
-            $table->dropForeign('habitats_prey_id_foreign');
-            $table->dropForeign('habitats_lizard_id_foreign');
-            $table->dropColumn('lizard_id');
-            $table->dropColumn('prey_id');
-        });
         Schema::table('preys', function (Blueprint $table): void {
             $table->foreignId('habitat_id')
                 ->nullable()
                 ->constrained()
                 ->onDelete('set null');
         });
+        DB::table('preys')->update([
+            'habitat_id' => DB::raw('(SELECT id FROM habitats WHERE habitats.prey_id = preys.id LIMIT 1)'),
+        ]);
         Schema::table('lizards', function (Blueprint $table): void {
             $table->foreignId('habitat_id')
                 ->nullable()
                 ->constrained()
                 ->onDelete('set null');
         });
+        DB::table('lizards')->update([
+            'habitat_id' => DB::raw('(SELECT id FROM habitats WHERE habitats.lizard_id = lizards.id LIMIT 1)'),
+        ]);
+        Schema::table('habitats', function (Blueprint $table): void {
+            $table->dropForeign('habitats_prey_id_foreign');
+            $table->dropForeign('habitats_lizard_id_foreign');
+            $table->dropColumn('lizard_id');
+            $table->dropColumn('prey_id');
+        });
+
     }
 };

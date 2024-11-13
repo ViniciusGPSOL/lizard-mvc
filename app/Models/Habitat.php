@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Habitat extends Model
 {
@@ -13,12 +13,12 @@ class Habitat extends Model
         "temperature",
     ];
 
-    public function lizard(): HasMany
+    public function lizard(): BelongsTo
     {
-        return $this->hasMany(Lizard::class);
+        return $this->belongsTo(Lizard::class);
     }
-    public function prey(): HasMany
+    public function prey(): BelongsTo
     {
-        return $this->hasMany(Lizard::class);
+        return $this->belongsTo(Prey::class);
     }
 }
