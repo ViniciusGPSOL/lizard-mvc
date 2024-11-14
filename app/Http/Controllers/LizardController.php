@@ -65,7 +65,8 @@ class LizardController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $validated = $request->validate(rules: [
+        // Validate the request data
+        $validated = $request->validate([
             "name" => "required|string|max:255",
             "species" => "required|string|max:255",
             "age" => "nullable|integer",
@@ -74,9 +75,12 @@ class LizardController extends Controller
             "poisonous" => "boolean",
         ]);
 
-        $lizard = Lizard::findOrFail(id: $id)->update(attributes: $validated);
-        return response()->json(data: $lizard, status: 201);
+        $lizard = Lizard::findOrFail($id);
+        $lizard->update($validated);
+
+        return response()->json($lizard, 200);
     }
+
 
 
     /**

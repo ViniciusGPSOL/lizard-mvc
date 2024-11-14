@@ -49,6 +49,7 @@ class HabitatController extends Controller
     public function show(string $id)
     {
         $habitat = Habitat::findOrFail($id);
+        return response()->json(data: $habitat, status: 201);
     }
 
     /**
