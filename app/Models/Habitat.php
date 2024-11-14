@@ -3,18 +3,24 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Habitat extends Model
 {
+    use HasFactory;
     protected $fillable = [
         "name",
         "biome",
         "temperature",
     ];
 
-    public function lizard(): HasOne
+    public function lizard(): BelongsTo
     {
-        return $this->hasOne(Lizard::class);
+        return $this->belongsTo(Lizard::class);
+    }
+    public function prey(): BelongsTo
+    {
+        return $this->belongsTo(Prey::class);
     }
 }

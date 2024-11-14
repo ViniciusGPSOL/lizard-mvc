@@ -4,11 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Lizard extends Model
 {
-
+    use HasFactory;
     // The default way that Models relates to the database is by looking at the Model name,
     // then getting its plural for example, Lizards will relate to the table lizards. If I have a different table name
     // I can define it like this:
@@ -29,8 +30,8 @@ class Lizard extends Model
     public function getFullDescriptionAttribute(): string
     {
         return "age: " . (string) $this->age .
-            "species: " . (string) $this->species .
-            "weight: " . (string) $this->weight .
+            " species: " . (string) $this->species .
+            " weight: " . (string) $this->weight .
             "\n" . (string) $this->description; //description in one line
     }
 
@@ -40,9 +41,9 @@ class Lizard extends Model
         return $query->where("is_active", true);
     }
 
-    public function habitat(): BelongsTo
+    public function habitat(): HasMany
     {
-        return $this->belongsTo(Habitat::class);
+        return $this->hasMany(Habitat::class);
     }
     protected $fillable = [ //can be mass assigned to not make it able to mass assign one should use $guarded
         "name",
